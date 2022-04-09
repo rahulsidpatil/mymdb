@@ -1,28 +1,26 @@
 definitions:
   entities.Movie:
     properties:
-      genere:
+      Genre:
         example:
-        - '["Action"'
-        - '"Adventure"'
-        - '"Drama"]'
+        - Action
+        - ' Adventure'
+        - ' Drama'
         items:
           type: string
         type: array
-      id:
-        example: 1
-        type: integer
-      metadata:
-        type: object
-      rating:
+      ImdbID:
+        example: tt2884018
+        type: string
+      Rated:
         example: 8.4
         type: number
-      release_year:
-        example: 2019
-        type: integer
-      title:
+      Title:
         example: Avengers:Endgame
         type: string
+      Year:
+        example: 2019
+        type: integer
     type: object
   utils.HTTPError:
     properties:
@@ -48,7 +46,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Fetch message by ID
+      description: Fetch movie by ID
       parameters:
       - description: Movie ID
         in: path
@@ -70,5 +68,32 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/utils.HTTPError'
-      summary: Fetch message by ID
+      summary: Fetch movie by ID
+  /movies/{title}:
+    get:
+      consumes:
+      - application/json
+      description: Fetch movie by ID
+      parameters:
+      - description: Movie title
+        in: path
+        name: title
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Movie'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+      summary: Fetch movie by ID
 swagger: "2.0"

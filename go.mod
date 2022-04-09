@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
+	github.com/eefret/gomdb v0.0.0-20171206153129-8a1e0abd4449
 	github.com/gorilla/mux v1.8.0
 	github.com/swaggo/http-swagger v1.2.5
 	github.com/swaggo/swag v1.7.9

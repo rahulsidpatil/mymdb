@@ -1,0 +1,62 @@
+{
+	"info": {
+		"_postman_id": "2b95147e-54af-427a-8b3e-daab6c99e6a8",
+		"name": "mymdb-endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "mymdb-welcome-page",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/hello",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"hello"
+					]
+				},
+				"description": "mymdb server welcome page"
+			},
+			"response": []
+		},
+		{
+			"name": "GetById",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/movies/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"movies",
+						"1"
+					]
+				},
+				"description": "fetch movies by ID"
+			},
+			"response": []
+		}
+	]
+}

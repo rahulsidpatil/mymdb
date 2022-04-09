@@ -28,6 +28,7 @@ services:
       DB_USER: docker
       DB_PASSWD: docker
       DB_NAME: messageDB
+      API_KEY: 823ef2af
     container_name: mymdb
     ports:
       - "8080:8080"

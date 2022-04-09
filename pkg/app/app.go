@@ -49,6 +49,7 @@ func (m *MyMdb) initializeRoutes(swaggerAddr, svcPathPrefix string) {
 	//welcome to mymdb
 	m.router.HandleFunc(os.Getenv("SVC_VERSION")+"/hello", hello).Methods("GET")
 	m.router.HandleFunc(svcPathPrefix+"/{id:[0-9]+}", get.GetById).Methods("GET")
+	m.router.HandleFunc(svcPathPrefix+"/{title:[a-z0-9]}", get.GetByTitle).Methods("GET")
 }
 
 func setSwaggerInfo(swaggerAddr, port, version string) {

@@ -18,14 +18,11 @@ import (
 // @Router /movies/{id} [get]
 func GetById(w http.ResponseWriter, r *http.Request) {
 	m := entities.Movie{
-		Id:          1,
-		Title:       "Avengers:Endgame",
-		ReleaseYear: 2019,
-		Rating:      8.4,
-		Genere:      []string{"Action", "Adventure", "Drama"},
-		MetaData: `After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. 
-		With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' 
-		actions and restore balance to the universe.`,
+		Id:    "tt2884018",
+		Title: "Avengers:Endgame",
+		Year:  2019,
+		Rated: 8.4,
+		Genre: []string{"Action", "Adventure", "Drama"},
 	}
 	utils.RespondWithJSON(w, http.StatusOK, m)
 }

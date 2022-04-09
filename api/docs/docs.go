@@ -42,19 +42,60 @@ var doc = `{
         },
         "/movies/{id}": {
             "get": {
-                "description": "Fetch message by ID",
+                "description": "Fetch movie by ID",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Fetch message by ID",
+                "summary": "Fetch movie by ID",
                 "parameters": [
                     {
                         "type": "integer",
                         "description": "Movie ID",
                         "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entities.Movie"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/movies/{title}": {
+            "get": {
+                "description": "Fetch movie by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Fetch movie by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Movie title",
+                        "name": "title",
                         "in": "path",
                         "required": true
                     }
@@ -86,35 +127,32 @@ var doc = `{
         "entities.Movie": {
             "type": "object",
             "properties": {
-                "genere": {
+                "Genre": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
                     "example": [
-                        "[\"Action\"",
-                        "\"Adventure\"",
-                        "\"Drama\"]"
+                        "Action",
+                        " Adventure",
+                        " Drama"
                     ]
                 },
-                "id": {
-                    "type": "integer",
-                    "example": 1
+                "ImdbID": {
+                    "type": "string",
+                    "example": "tt2884018"
                 },
-                "metadata": {
-                    "type": "object"
-                },
-                "rating": {
+                "Rated": {
                     "type": "number",
                     "example": 8.4
                 },
-                "release_year": {
-                    "type": "integer",
-                    "example": 2019
-                },
-                "title": {
+                "Title": {
                     "type": "string",
                     "example": "Avengers:Endgame"
+                },
+                "Year": {
+                    "type": "integer",
+                    "example": 2019
                 }
             }
         },
