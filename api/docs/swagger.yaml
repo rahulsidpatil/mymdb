@@ -1,0 +1,74 @@
+definitions:
+  entities.Movie:
+    properties:
+      genere:
+        example:
+        - '["Action"'
+        - '"Adventure"'
+        - '"Drama"]'
+        items:
+          type: string
+        type: array
+      id:
+        example: 1
+        type: integer
+      metadata:
+        type: object
+      rating:
+        example: 8.4
+        type: number
+      release_year:
+        example: 2019
+        type: integer
+      title:
+        example: Avengers:Endgame
+        type: string
+    type: object
+  utils.HTTPError:
+    properties:
+      message:
+        example: status bad request
+        type: string
+    type: object
+info:
+  contact: {}
+  license: {}
+paths:
+  /hello:
+    get:
+      description: Say hello to user
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "404": {}
+      summary: Say hello to user
+  /movies/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Fetch message by ID
+      parameters:
+      - description: Movie ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Movie'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+      summary: Fetch message by ID
+swagger: "2.0"
