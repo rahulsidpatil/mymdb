@@ -52,7 +52,6 @@ func GetMySQLDriver() *MySQLDriver {
 
 // GetMoviesWithMinRating ...
 func (db *MySQLDriver) GetMoviesWithMinRating(minRating float32) ([]entities.Movie, error) {
-	logger.Sugar().Infof("in GetMoviesWithMinRating()")
 	statement := fmt.Sprintf("SELECT * FROM mDB.movies WHERE Rated>=%f", minRating)
 
 	rows, err := db.driver.Query(statement)
@@ -66,7 +65,6 @@ func (db *MySQLDriver) GetMoviesWithMinRating(minRating float32) ([]entities.Mov
 
 // GetMoviesWithMaxRating ...
 func (db *MySQLDriver) GetMoviesWithMaxRating(maxRated float32) ([]entities.Movie, error) {
-	logger.Sugar().Infof("in GetMovieById()")
 	statement := fmt.Sprintf("SELECT * FROM mDB.movies WHERE Rated<=%f", maxRated)
 	rows, err := db.driver.Query(statement)
 	if err != nil {
@@ -79,7 +77,6 @@ func (db *MySQLDriver) GetMoviesWithMaxRating(maxRated float32) ([]entities.Movi
 
 // GetMovieById ... get movie by ID
 func (db *MySQLDriver) GetMovieById(Id string) (entities.Movie, error) {
-	logger.Sugar().Infof("in GetMovieById()")
 	m := entities.Movie{}
 	statement := fmt.Sprintf("SELECT * FROM mDB.movies WHERE Id=\"%s\"", Id)
 	var genre string
@@ -93,11 +90,9 @@ func (db *MySQLDriver) GetMovieById(Id string) (entities.Movie, error) {
 
 // GetMoviesByTitle ...
 func (db *MySQLDriver) GetMoviesByTitle(Title string) (entities.Movie, error) {
-	logger.Sugar().Infof("in GetMoviesByTitle()")
 	m := entities.Movie{}
 	movieTitle := `%` + Title + `%`
 	statement := fmt.Sprintf("SELECT * FROM mDB.movies WHERE Title like '%s'", movieTitle)
-	logger.Sugar().Infof("Query statement:", statement)
 	var genre string
 	err := db.driver.QueryRow(statement).Scan(&m.Id, &m.Title, &m.Year, &m.Rated, &genre)
 	if err != nil {
@@ -109,7 +104,6 @@ func (db *MySQLDriver) GetMoviesByTitle(Title string) (entities.Movie, error) {
 
 // GetMoviesByYear ...
 func (db *MySQLDriver) GetMoviesByYear(year int) ([]entities.Movie, error) {
-	logger.Sugar().Infof("in GetMoviesByYear()")
 	statement := fmt.Sprintf("SELECT * FROM mDB.movies WHERE Year=%d", year)
 	logger.Sugar().Infof("Query statement:", statement)
 	rows, err := db.driver.Query(statement)
@@ -117,16 +111,13 @@ func (db *MySQLDriver) GetMoviesByYear(year int) ([]entities.Movie, error) {
 		logger.Sugar().Errorf("Error executiong query!!", err)
 		return nil, err
 	}
-	logger.Sugar().Infof("Rows fetched:", rows)
 	defer rows.Close()
 	return rowMapper(rows)
 }
 
 // GetMoviesByYearRange ...
 func (db *MySQLDriver) GetMoviesByYearRange(start, end int) ([]entities.Movie, error) {
-	logger.Sugar().Infof("in GetMoviesByYearRange()")
 	statement := fmt.Sprintf("SELECT * FROM mDB.movies WHERE Year>=%d AND Year<=%d", start, end)
-	logger.Sugar().Infof("Query statement:", statement)
 	rows, err := db.driver.Query(statement)
 	if err != nil {
 		logger.Sugar().Errorf("Error executiong query!!", err)
@@ -139,7 +130,6 @@ func (db *MySQLDriver) GetMoviesByYearRange(start, end int) ([]entities.Movie, e
 
 // AddMovie ...
 func (db *MySQLDriver) AddMovie(m *entities.Movie) {
-	logger.Sugar().Infof("in AddMovie()")
 	statement := fmt.Sprintf("INSERT INTO mDB.movies(Id, Title, Year, Rated, Genre) VALUES ('%s','%s','%d','%f','%s');",
 		m.Id, m.Title, m.Year, m.Rated, strings.Join(m.Genre, ","))
 	_, err := db.driver.Exec(statement)
@@ -154,33 +144,28 @@ func (db *MySQLDriver) AddMovie(m *entities.Movie) {
 
 //GetAll ... get all movies
 func (db *MySQLDriver) GetAll() ([]entities.Movie, error) {
-	logger.Sugar().Infof("in GetALL()")
 	statement := "SELECT * FROM mDB.movies"
-	logger.Sugar().Infof("Query statement:", statement)
 	rows, err := db.driver.Query(statement)
 	if err != nil {
 		logger.Sugar().Errorf("Error executiong query!!", err)
 		return nil, err
 	}
-	defer rows.Close()
 
+	defer rows.Close()
 	return rowMapper(rows)
 }
 
 // GetMoviesByGenre ...
 func (db *MySQLDriver) GetMoviesByGenre(genre []string) []entities.Movie {
-	logger.Sugar().Infof("in GetMoviesByGenre()")
 	movies := make([]entities.Movie, 0)
 	for _, g := range genre {
 		movieGenre := `%` + g + `%`
 		statement := fmt.Sprintf("SELECT * FROM mDB.movies WHERE Genre like '%s'", movieGenre)
-		logger.Sugar().Infof("Query statement:", statement)
 		rows, err := db.driver.Query(statement)
 		if err != nil {
 			logger.Sugar().Errorf("Error executiong query!!", err)
 			continue
 		}
-		logger.Sugar().Infof("Rows fetched:", rows)
 		defer rows.Close()
 		m, err := rowMapper(rows)
 		if err != nil {
@@ -190,7 +175,6 @@ func (db *MySQLDriver) GetMoviesByGenre(genre []string) []entities.Movie {
 			movies = append(movies, m...)
 		}
 	}
-	logger.Sugar().Info("All movies by Genre:", movies)
 	return movies
 }
 

@@ -15,6 +15,7 @@ import (
 var MdbApi *gomdb.OmdbApi
 
 func init() {
+	// This apiKey is needed to access the services of github.com/eefret/gomdb
 	apiKey := os.Getenv("API_KEY")
 	if apiKey == "" {
 		apiKey = "823ef2af"
@@ -22,21 +23,22 @@ func init() {
 	MdbApi = gomdb.Init(apiKey)
 }
 
+// RespondWithError ...
 func RespondWithError(w http.ResponseWriter, code int, message string) {
 	RespondWithJSON(w, code, map[string]string{"error": message})
 }
 
+// RespondWithJSON ...
 func RespondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	response, err := json.Marshal(payload)
 	if err != nil {
 		RespondWithError(w, code, err.Error())
 	}
-
 	w.Header().Set("Content-Type", "application/json")
-	// w.WriteHeader(code)
 	w.Write(response)
 }
 
+// ParseResults ... parse results received from github.com/eefret/gomdb
 func ParseResults(result *gomdb.MovieResult) (*entities.Movie, error) {
 	year, _ := strconv.Atoi(result.Year)
 	rating, _ := strconv.ParseFloat(result.ImdbRating, 32)
@@ -50,6 +52,8 @@ func ParseResults(result *gomdb.MovieResult) (*entities.Movie, error) {
 	}, nil
 }
 
+// PopulateDB ... this function will be used to populate local movie database at runtime
+// This is still a WIP
 func PopulateDB() {
 	query := &gomdb.QueryData{Title: "Avengers", SearchType: gomdb.MovieSearch}
 	searchRes, err := MdbApi.Search(query)
