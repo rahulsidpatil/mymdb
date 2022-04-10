@@ -14,14 +14,11 @@ The main.go file is an entry point for mymdb application. It invokes application
 ```
 package main
 
-import (
-	"github.com/rahulsidpatil/mymdb/pkg/handlers"
-)
+import "github.com/rahulsidpatil/mymdb/pkg/app"
 
 func main() {
-	a := handlers.App{}
+	a := app.MyMdb{}
 	a.Initialize()
 	a.Run()
 }
-
 ```
