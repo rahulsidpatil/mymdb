@@ -9,7 +9,7 @@ services:
       - "sqldb:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: messageDB
+      MYSQL_DATABASE: mDB
       MYSQL_USER: docker
       MYSQL_PASSWORD: docker
     container_name: sqldb
@@ -27,7 +27,7 @@ services:
       DB_PORT: 3306
       DB_USER: docker
       DB_PASSWD: docker
-      DB_NAME: messageDB
+      DB_NAME: mDB
       API_KEY: 823ef2af
     container_name: mymdb
     ports:

@@ -3,49 +3,45 @@ package get
 import (
 	"fmt"
 	"net/http"
-	"os"
 
 	"github.com/eefret/gomdb"
 	"github.com/gorilla/mux"
+	"github.com/rahulsidpatil/mymdb/pkg/dal"
 	"github.com/rahulsidpatil/mymdb/pkg/utils"
+	"go.uber.org/zap"
 )
-
-var api *gomdb.OmdbApi
-
-func init() {
-	apiKey := os.Getenv("API_KEY")
-	if apiKey == "" {
-		apiKey = "823ef2af"
-	}
-	api = gomdb.Init(apiKey)
-}
 
 // @Summary Fetch movie by ID
 // @Description Fetch movie by ID
-// @Accept  json
 // @Produce  json
-// @Param title path string true "Movie title"
+// @Param Title path string true "Movie Title"
 // @Success 200 {object} entities.Movie
 // @Failure 404 {object} utils.HTTPError
 // @Failure 500 {object} utils.HTTPError
-// @Router /movies/{title} [get]
+// @Router /movies/Title/{Title} [get]
 func GetByTitle(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	title, ok := vars["title"]
+	title, ok := vars["Title"]
 	if !ok {
-		utils.RespondWithError(w, http.StatusBadRequest, "Invalid Title!!")
+		utils.RespondWithError(w, http.StatusBadRequest, "Invalid movie Title")
 		return
 	}
-	query := &gomdb.QueryData{Title: title}
-	result, err := api.MovieByTitle(query)
+	db := dal.GetMySQLDriver()
+	logger.Sugar().Infof("Got this DB driver:%#v", db)
+	m, err := db.GetMoviesByTitle(title)
 	if err != nil {
-		fmt.Println(err)
-		utils.RespondWithError(w, http.StatusNoContent, "")
-	}
-
-	m, err := utils.ParseResults(result)
-	if err != nil {
-		utils.RespondWithError(w, http.StatusNoContent, "")
+		logger.Sugar().Error("Error fetching movie by title:", zap.Error(err))
+		query := &gomdb.QueryData{Title: title}
+		result, err := utils.MdbApi.MovieByTitle(query)
+		if err != nil {
+			fmt.Println(err)
+			utils.RespondWithError(w, http.StatusNoContent, "")
+		}
+		m, err := utils.ParseResults(result)
+		if err != nil {
+			utils.RespondWithError(w, http.StatusNoContent, "")
+		}
+		utils.RespondWithJSON(w, http.StatusOK, m)
 	}
 	utils.RespondWithJSON(w, http.StatusOK, m)
 }

@@ -42,17 +42,34 @@ paths:
             type: string
         "404": {}
       summary: Say hello to user
-  /movies/{id}:
+  /movies:
     get:
-      consumes:
-      - application/json
-      description: Fetch movie by ID
+      description: Get all Movies
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.Movie'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+      summary: Get all movies
+  /movies/Genre/{Genre}:
+    get:
+      description: Fetch movies by Genre
       parameters:
-      - description: Movie ID
+      - description: Movie Genre
         in: path
-        name: id
+        name: Genre
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:
@@ -68,16 +85,14 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/utils.HTTPError'
-      summary: Fetch movie by ID
-  /movies/{title}:
+      summary: Fetch movies by Genre
+  /movies/Id/{Id}:
     get:
-      consumes:
-      - application/json
       description: Fetch movie by ID
       parameters:
-      - description: Movie title
+      - description: Movie Id
         in: path
-        name: title
+        name: Id
         required: true
         type: string
       produces:
@@ -96,4 +111,140 @@ paths:
           schema:
             $ref: '#/definitions/utils.HTTPError'
       summary: Fetch movie by ID
+  /movies/Title/{Title}:
+    get:
+      description: Fetch movie by ID
+      parameters:
+      - description: Movie Title
+        in: path
+        name: Title
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Movie'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+      summary: Fetch movie by ID
+  /movies/Year/{Year}:
+    get:
+      description: Fetch movies by year
+      parameters:
+      - description: Movie Year
+        in: path
+        name: Year
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Movie'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+      summary: Fetch movies by year
+  /movies/Year/start/{start}/end/{end}:
+    get:
+      description: Fetch movies by year
+      parameters:
+      - description: start year
+        in: path
+        name: start
+        required: true
+        type: integer
+      - description: end year
+        in: path
+        name: end
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Movie'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+      summary: Fetch movies by year
+  /movies/maxRating/{maxRating}:
+    get:
+      description: Get all Movies with max rating r
+      parameters:
+      - description: Movie rating
+        in: path
+        name: maxRating
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.Movie'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+      summary: Get all movie with max rating r
+  /movies/minRating/{minRating}:
+    get:
+      consumes:
+      - application/json
+      description: Get all Movies with min rating r
+      parameters:
+      - description: Movie rating
+        in: path
+        name: minRating
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.Movie'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.HTTPError'
+      summary: Get all movie with min rating r
 swagger: "2.0"

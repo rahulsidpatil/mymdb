@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "30d8fff4-1c11-45a2-a75a-c997d2a74737",
+		"name": "mymdb-endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "mymdb-welcome-page",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/hello",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"hello"
+					]
+				},
+				"description": "mymdb server welcome page"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Movies in local Database",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movies by Genres from local DB",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/movies/Genre/Action%2Cwar%2Cdrama",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"movies",
+						"Genre",
+						"Action%2Cwar%2Cdrama"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movie by Id from local DB",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/movies/Id/tt0040558",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"movies",
+						"Id",
+						"tt0040558"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movie By Title from Local DB or github.com/eefret/gomdb",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/movies/Title/Macbeth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"movies",
+						"Title",
+						"Macbeth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movies By Year Range from local DB",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/movies/Year/start/2010/end/2020",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"movies",
+						"Year",
+						"start",
+						"2010",
+						"end",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movie By Year form local DB",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/movies/Year/2016",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"movies",
+						"Year",
+						"2016"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movies with Rating <= Given Rating from local DB",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/movies/maxRating/8.1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"movies",
+						"maxRating",
+						"8.1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Movies With Rating >= given rating from local DB",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/movies/minRating/7.5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"movies",
+						"minRating",
+						"7.5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -48,8 +48,14 @@ func (m *MyMdb) initializeRoutes(swaggerAddr, svcPathPrefix string) {
 
 	//welcome to mymdb
 	m.router.HandleFunc(os.Getenv("SVC_VERSION")+"/hello", hello).Methods("GET")
-	m.router.HandleFunc(svcPathPrefix+"/{id:[0-9]+}", get.GetById).Methods("GET")
-	m.router.HandleFunc(svcPathPrefix+"/{title:[a-z0-9]}", get.GetByTitle).Methods("GET")
+	m.router.HandleFunc(svcPathPrefix+"/Id/{Id}", get.GetById).Methods("GET")
+	m.router.HandleFunc(svcPathPrefix+"/Title/{Title}", get.GetByTitle).Methods("GET")
+	m.router.HandleFunc(svcPathPrefix+"/Genre/{Genre}", get.GetByGenre).Methods("GET")
+	m.router.HandleFunc(svcPathPrefix+"/Year/{Year}", get.GetByYear).Methods("GET")
+	m.router.HandleFunc(svcPathPrefix+"/Year/start/{start}/end/{end}", get.GetByYearRange).Methods("GET")
+	m.router.HandleFunc(svcPathPrefix+"/minRating/{minRating}", get.GetMovieWithMinRating).Methods("GET")
+	m.router.HandleFunc(svcPathPrefix+"/maxRating/{maxRating}", get.GetMovieWithMaxRating).Methods("GET")
+	m.router.HandleFunc(svcPathPrefix, get.GetAll).Methods("GET")
 }
 
 func setSwaggerInfo(swaggerAddr, port, version string) {

@@ -40,21 +40,47 @@ var doc = `{
                 }
             }
         },
-        "/movies/{id}": {
+        "/movies": {
             "get": {
-                "description": "Fetch movie by ID",
-                "consumes": [
-                    "application/json"
-                ],
+                "description": "Get all Movies",
+                "summary": "Get all movies",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entities.Movie"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/movies/Genre/{Genre}": {
+            "get": {
+                "description": "Fetch movies by Genre",
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Fetch movie by ID",
+                "summary": "Fetch movies by Genre",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "Movie ID",
-                        "name": "id",
+                        "type": "string",
+                        "description": "Movie Genre",
+                        "name": "Genre",
                         "in": "path",
                         "required": true
                     }
@@ -81,12 +107,9 @@ var doc = `{
                 }
             }
         },
-        "/movies/{title}": {
+        "/movies/Id/{Id}": {
             "get": {
                 "description": "Fetch movie by ID",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -94,8 +117,8 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Movie title",
-                        "name": "title",
+                        "description": "Movie Id",
+                        "name": "Id",
                         "in": "path",
                         "required": true
                     }
@@ -105,6 +128,212 @@ var doc = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/entities.Movie"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/movies/Title/{Title}": {
+            "get": {
+                "description": "Fetch movie by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Fetch movie by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Movie Title",
+                        "name": "Title",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entities.Movie"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/movies/Year/start/{start}/end/{end}": {
+            "get": {
+                "description": "Fetch movies by year",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Fetch movies by year",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "start year",
+                        "name": "start",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "end year",
+                        "name": "end",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entities.Movie"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/movies/Year/{Year}": {
+            "get": {
+                "description": "Fetch movies by year",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Fetch movies by year",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Movie Year",
+                        "name": "Year",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entities.Movie"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/movies/maxRating/{maxRating}": {
+            "get": {
+                "description": "Get all Movies with max rating r",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get all movie with max rating r",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Movie rating",
+                        "name": "maxRating",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entities.Movie"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.HTTPError"
+                        }
+                    }
+                }
+            }
+        },
+        "/movies/minRating/{minRating}": {
+            "get": {
+                "description": "Get all Movies with min rating r",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get all movie with min rating r",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Movie rating",
+                        "name": "minRating",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entities.Movie"
+                            }
                         }
                     },
                     "404": {

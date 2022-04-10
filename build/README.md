@@ -21,7 +21,7 @@ build
 This directory contains mysql db Dockerfile and initial Database creation scripts. Following are mysql DDL files we use for the same. 
 `createDB.sql`:
 ```
-CREATE TABLE IF NOT EXISTS messageDB.messages (
+CREATE TABLE IF NOT EXISTS mDB.messages (
 id INT NOT NULL auto_increment PRIMARY KEY,
 msg  VARCHAR(512)
 )auto_increment = 1;
@@ -29,7 +29,7 @@ msg  VARCHAR(512)
 ```
 `initData.sql`
 ```
-INSERT INTO messageDB.messages (msg) VALUES ('First message');
+INSERT INTO mDB.messages (msg) VALUES ('First message');
 ```
 
 ## docker-deploy:
@@ -48,7 +48,7 @@ services:
       - "sqldb:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: messageDB
+      MYSQL_DATABASE: mDB
       MYSQL_USER: docker
       MYSQL_PASSWORD: docker
     container_name: sqldb
@@ -68,7 +68,7 @@ services:
       DB_PORT: 3306
       DB_USER: docker
       DB_PASSWD: docker
-      DB_NAME: messageDB
+      DB_NAME: mDB
     container_name: mymdb
     ports:
       - "8080:8080"

@@ -1,1 +1,0 @@
-INSERT INTO messageDB.messages (msg) VALUES ('First message');
